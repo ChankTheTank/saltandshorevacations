@@ -822,48 +822,50 @@
     <p class="section-sub">Send us a message and our team will get back to you within a few hours with availability and rates.</p>
 
     <div class="contact-form">
-      <form id="inquiryForm">
+      <form id="inquiryForm" name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <!-- Netlify needs this hidden field to match the form by name -->
+        <input type="hidden" name="form-name" value="inquiry" />
+        <!-- Honeypot: hidden from people, catches spam bots that fill every field -->
+        <p hidden><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
         <div class="form-row">
           <div class="form-group">
             <label for="fname">First Name</label>
-            <input type="text" id="fname" placeholder="Jane" required />
+            <input type="text" id="fname" name="first_name" placeholder="Jane" required />
           </div>
           <div class="form-group">
             <label for="lname">Last Name</label>
-            <input type="text" id="lname" placeholder="Smith" required />
+            <input type="text" id="lname" name="last_name" placeholder="Smith" required />
           </div>
         </div>
         <div class="form-group">
           <label for="email">Email Address</label>
-          <input type="email" id="email" placeholder="jane@example.com" required />
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required />
         </div>
         <div class="form-group">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" placeholder="(555) 000-0000" />
+          <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="checkin">Check-In Date</label>
-            <input type="date" id="checkin" />
+            <input type="date" id="checkin" name="check_in" />
           </div>
           <div class="form-group">
             <label for="checkout">Check-Out Date</label>
-            <input type="date" id="checkout" />
+            <input type="date" id="checkout" name="check_out" />
           </div>
         </div>
         <div class="form-group">
           <label for="property">Interested In</label>
-          <select id="property">
+          <select id="property" name="property">
             <option value="">Any available property</option>
-            <option>Sunset Canal Cottage</option>
-            <option>Blue Horizon Pool Home</option>
-            <option>The Palm Breeze Villa (coming soon)</option>
+            <option>Cape Escape</option>
             <option>Not sure — show me options</option>
           </select>
         </div>
         <div class="form-group">
           <label for="guests">Number of Guests</label>
-          <select id="guests">
+          <select id="guests" name="guests">
             <option>1–2 guests</option>
             <option>3–4 guests</option>
             <option>5–6 guests</option>
@@ -873,7 +875,7 @@
         </div>
         <div class="form-group">
           <label for="message">Message (optional)</label>
-          <textarea id="message" placeholder="Tell us about your trip — any special requests, questions, or occasions we should know about…"></textarea>
+          <textarea id="message" name="message" placeholder="Tell us about your trip — any special requests, questions, or occasions we should know about…"></textarea>
         </div>
         <button type="submit" class="btn btn-primary form-submit">Send Inquiry 🌊</button>
       </form>
@@ -886,7 +888,7 @@
 
     <p style="margin-top:1.5rem; font-size:0.85rem; color:var(--text-lt); text-align:center;">
       Or email us directly at
-      <a href="mailto:hello@saltandshorevacations.com" style="color:var(--ocean); font-weight:600;">hello@saltandshorevacations.com</a>
+      <a href="mailto:andreavanderklok@gmail.com" style="color:var(--ocean); font-weight:600;">andreavanderklok@gmail.com</a>
     </p>
   </div>
 </section>
@@ -916,7 +918,7 @@
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:hello@saltandshorevacations.com">hello@saltandshorevacations.com</a></li>
+        <li><a href="mailto:andreavanderklok@gmail.com">andreavanderklok@gmail.com</a></li>
         <li><a href="tel:+12395550100">(239) 555-0100</a></li>
         <li><a href="#">Cape Coral, FL 33990</a></li>
         <li style="margin-top:0.75rem;">
@@ -941,11 +943,28 @@
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  // Contact form demo handler
-  document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+  // Contact form -> submits to Netlify Forms, then shows inline success message
+  const inquiryForm = document.getElementById('inquiryForm');
+  inquiryForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+    const btn = inquiryForm.querySelector('button[type="submit"]');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = new URLSearchParams(new FormData(inquiryForm)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data
+    })
+    .then(() => {
+      inquiryForm.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    })
+    .catch(() => {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+    });
   });
 
   // Set date input minimums to today
