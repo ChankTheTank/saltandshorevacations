@@ -1,0 +1,6 @@
+# Local backup of full-resolution originals — keep out of the repo
+images/original/
+
+# OS / editor junk
+Thumbs.db
+.DS_Store
