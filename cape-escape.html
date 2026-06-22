@@ -147,6 +147,20 @@
 
     .divider { height: 1px; background: var(--sand-dk); margin: 2.5rem 0; }
 
+    /* ── MAP ── */
+    .map-embed {
+      position: relative; width: 100%; height: 380px;
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--sand-dk); box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .map-address {
+      margin-top: 0.9rem; font-size: 0.9rem; color: var(--text-lt);
+      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    }
+    .map-address a { color: var(--ocean); text-decoration: none; font-weight: 500; }
+    .map-address a:hover { text-decoration: underline; }
+
     .amenities {
       display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem;
     }
@@ -331,6 +345,24 @@
       <div class="amenity"><span class="a-icon">🍽️</span> Restaurants &amp; grocery — minutes away</div>
       <div class="amenity"><span class="a-icon">🏙️</span> Downtown Ft. Myers — ~25 min</div>
       <div class="amenity"><span class="a-icon">🏝️</span> Ft. Myers Beach — ~40 min</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Find us</div>
+    <h2>Where you'll be</h2>
+    <p>Tucked into a quiet residential neighborhood in NW Cape Coral, just minutes from parks, dining, and groceries.</p>
+    <div class="map-embed">
+      <iframe
+        src="https://maps.google.com/maps?q=419%20NW%207th%20Terrace%2C%20Cape%20Coral%2C%20FL%2033993&z=14&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map of Cape Escape — 419 NW 7th Terrace, Cape Coral, FL 33993"></iframe>
+    </div>
+    <div class="map-address">
+      <span>📍 419 NW 7th Terrace, Cape Coral, FL 33993</span>
+      <span>·</span>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=419+NW+7th+Terrace%2C+Cape+Coral%2C+FL+33993" target="_blank" rel="noopener">Get directions ↗</a>
     </div>
   </div>
 
