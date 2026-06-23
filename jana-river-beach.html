@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jana River Beach — Salt &amp; Shore Vacations | Port Charlotte, FL</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <meta name="description" content="Jana River Beach — a waterfront vacation condo with community pool and pier in Port Charlotte, Florida. Listing details coming soon from Salt & Shore Vacations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sand:    #f5efe0;
+      --sand-dk: #e8dcc8;
+      --ocean:   #1a6b8a;
+      --ocean-lt:#2a8aad;
+      --wave:    #4fb8d4;
+      --coral:   #e07b54;
+      --coral-lt:#f0956e;
+      --driftwood:#7a6651;
+      --white:   #ffffff;
+      --text:    #2c2c2c;
+      --text-lt: #5a5a5a;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 5%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(26,107,138,0.12);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+    .nav-logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .nav-logo .logo-icon { font-size: 1.8rem; line-height: 1; }
+    .nav-logo .logo-text {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700;
+      color: var(--ocean); line-height: 1.1;
+    }
+    .nav-logo .logo-broker {
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.04em; color: var(--coral); display: block; margin-top: 1px;
+    }
+    .nav-logo .logo-sub {
+      font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--driftwood); display: block;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ocean); }
+    .nav-cta {
+      background: var(--coral); color: var(--white) !important;
+      padding: 0.5rem 1.2rem; border-radius: 50px; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--coral-lt) !important; }
+
+    .btn {
+      display: inline-block; text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      padding: 0.85rem 2rem; border-radius: 50px; cursor: pointer; border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+    .btn-primary { background: var(--coral); color: var(--white); }
+    .btn-primary:hover { background: var(--coral-lt); }
+    .btn-ocean { background: var(--ocean); color: var(--white); }
+    .btn-ocean:hover { background: var(--ocean-lt); }
+    .btn-outline { background: transparent; color: var(--ocean); border: 2px solid var(--ocean); }
+    .btn-outline:hover { background: var(--ocean); color: var(--white); }
+
+    /* ── BREADCRUMB / HEADER ── */
+    .property-header { padding: 7rem 5% 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .breadcrumb { font-size: 0.82rem; color: var(--text-lt); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--ocean); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .property-title-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .property-header h1 {
+      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; color: var(--ocean); line-height: 1.15;
+    }
+    .property-meta { display: flex; align-items: center; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .property-meta .loc { font-size: 0.95rem; color: var(--text-lt); }
+    .property-meta .stars { font-size: 0.9rem; color: #f0b429; font-weight: 600; }
+    .property-price { text-align: right; }
+    .property-price .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--coral); }
+    .property-price .per { font-size: 0.85rem; color: var(--text-lt); }
+
+    .placeholder-flag {
+      display: inline-block; background: #fff3cd; color: #856404;
+      border: 1px solid #ffe69c; font-size: 0.72rem; font-weight: 600;
+      padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 0.4rem; vertical-align: middle;
+    }
+
+    /* ── GALLERY ── */
+    .gallery {
+      max-width: 1200px; margin: 1.5rem auto 0; padding: 0 5%;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr;
+      gap: 10px; height: 460px;
+    }
+    .gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; cursor: pointer; transition: opacity 0.2s; }
+    .gallery img:hover { opacity: 0.9; }
+    .gallery .g-main { grid-row: 1 / 3; grid-column: 1; border-radius: 14px; }
+    .gallery .g-more {
+      position: relative;
+    }
+    .gallery .g-more .more-overlay {
+      position: absolute; inset: 0; background: rgba(13,45,58,0.6); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-weight: 600; font-size: 1rem; cursor: pointer;
+    }
+
+    /* ── LAYOUT ── */
+    .property-body {
+      max-width: 1200px; margin: 3rem auto; padding: 0 5%;
+      display: grid; grid-template-columns: 1fr 380px; gap: 3rem; align-items: start;
+    }
+
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--coral); margin-bottom: 0.5rem;
+    }
+    .property-body h2 {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700;
+      color: var(--ocean); margin-bottom: 1rem;
+    }
+    .property-body p { line-height: 1.75; color: var(--text-lt); margin-bottom: 1rem; }
+
+    .quick-facts {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      padding: 1.25rem 0; margin-bottom: 2rem;
+      border-top: 1px solid var(--sand-dk); border-bottom: 1px solid var(--sand-dk);
+    }
+    .quick-fact { text-align: center; }
+    .quick-fact .qf-num { font-size: 1.4rem; font-weight: 700; color: var(--ocean); display: block; }
+    .quick-fact .qf-label { font-size: 0.78rem; color: var(--text-lt); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .divider { height: 1px; background: var(--sand-dk); margin: 2.5rem 0; }
+
+    /* ── MAP ── */
+    .map-embed {
+      position: relative; width: 100%; height: 380px;
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--sand-dk); box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .map-address {
+      margin-top: 0.9rem; font-size: 0.9rem; color: var(--text-lt);
+      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    }
+    .map-address a { color: var(--ocean); text-decoration: none; font-weight: 500; }
+    .map-address a:hover { text-decoration: underline; }
+
+    .amenities {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem;
+    }
+    .amenity { display: flex; align-items: center; gap: 0.6rem; font-size: 0.92rem; color: var(--text); }
+    .amenity .a-icon { font-size: 1.2rem; }
+
+    /* ── BOOKING CARD ── */
+    .booking-card {
+      position: sticky; top: 6rem;
+      background: var(--white); border: 1px solid var(--sand-dk); border-radius: 18px;
+      padding: 1.75rem; box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+    .booking-card .bc-price { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+    .booking-card .bc-price span { font-size: 0.9rem; font-weight: 400; color: var(--text-lt); }
+    .booking-card .bc-stars { font-size: 0.85rem; color: #f0b429; margin-bottom: 1.25rem; }
+    .bc-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.6rem; }
+    .bc-field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .bc-field label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-lt); }
+    .bc-field input, .bc-field select {
+      border: 1.5px solid var(--sand-dk); border-radius: 8px; padding: 0.6rem 0.7rem;
+      font-size: 0.88rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s;
+    }
+    .bc-field input:focus, .bc-field select:focus { border-color: var(--wave); }
+    .bc-field.full { margin-bottom: 0.9rem; }
+    .booking-card .btn { width: 100%; text-align: center; }
+    .bc-note { font-size: 0.78rem; color: var(--text-lt); text-align: center; margin-top: 0.8rem; }
+
+    .booking-placeholder-note {
+      background: var(--sand); border-radius: 10px; padding: 0.8rem;
+      font-size: 0.78rem; color: var(--driftwood); margin-top: 1rem; line-height: 1.5;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(13,45,58,0.94); align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 90%; max-height: 85%; border-radius: 8px; }
+    .lightbox .lb-close { position: absolute; top: 1.5rem; right: 2rem; color: #fff; font-size: 2.5rem; cursor: pointer; line-height: 1; }
+    .lightbox .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 2.5rem; cursor: pointer; padding: 1rem; user-select: none;
+    }
+    .lightbox .lb-prev { left: 1rem; } .lightbox .lb-next { right: 1rem; }
+    .lightbox .lb-count { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.9rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #0d2d3a; color: rgba(255,255,255,0.75); padding: 3rem 5% 2rem; margin-top: 4rem; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between;
+      align-items: center; font-size: 0.8rem; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .footer-bottom a { color: var(--wave); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .property-body { grid-template-columns: 1fr; }
+      .booking-card { position: static; }
+      .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px; height: auto; }
+      .gallery .g-main { grid-row: 1; grid-column: 1 / 3; height: 240px; }
+    }
+    @media (max-width: 560px) {
+      .amenities { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-icon">🌊</span>
+    <span class="logo-text">
+      Salt &amp; Shore Vacations
+      <span class="logo-broker">Grow Prosper MOVE Realty</span>
+      <span class="logo-sub">Cape Coral, Florida</span>
+    </span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#properties">Properties</a></li>
+    <li><a href="index.html#about">Cape Coral</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<div class="property-header">
+  <div class="breadcrumb"><a href="index.html">Home</a> &nbsp;›&nbsp; <a href="index.html#properties">Properties</a> &nbsp;›&nbsp; Jana River Beach</div>
+  <div class="property-title-row">
+    <div>
+      <h1>Jana River Beach</h1>
+      <div class="property-meta">
+        <span class="loc">📍 Port Charlotte, FL</span>
+        <span class="loc">·</span>
+        <span class="loc">Waterfront condo · Community pool &amp; pier</span>
+      </div>
+    </div>
+    <div class="property-price">
+      <span class="num">Coming Soon</span>
+      <span class="per" style="display:block;">contact us for availability &amp; rates</span>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <img class="g-main" src="images/jana-river-beach/01.jpg" alt="Jana River Beach — photo 1" data-index="0" />
+  <img src="images/jana-river-beach/02.jpg" alt="Jana River Beach — photo 2" data-index="1" />
+  <img src="images/jana-river-beach/04.jpg" alt="Jana River Beach — photo 4" data-index="3" />
+  <img src="images/jana-river-beach/06.jpg" alt="Jana River Beach — photo 6" data-index="5" />
+  <div class="g-more">
+    <img src="images/jana-river-beach/05.jpg" alt="Jana River Beach — photo 5" data-index="4" />
+    <div class="more-overlay" onclick="openLightbox(0)">+ View all 17 photos</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="property-body">
+  <!-- LEFT -->
+  <div class="property-main">
+    <div class="quick-facts">
+      <div class="quick-fact"><span class="qf-num">🌊</span><span class="qf-label">Waterfront</span></div>
+      <div class="quick-fact"><span class="qf-num">🏊</span><span class="qf-label">Community Pool</span></div>
+      <div class="quick-fact"><span class="qf-num">🎣</span><span class="qf-label">Private Pier</span></div>
+      <div class="quick-fact"><span class="qf-num">🌅</span><span class="qf-label">Water Views</span></div>
+    </div>
+
+    <div class="section-label">About this home</div>
+    <h2>Waterfront condo in Port Charlotte</h2>
+    <p>
+      A bright waterfront condo in Port Charlotte, Florida — with a community pool overlooking the water, a private
+      pier, and beautiful water views.
+    </p>
+    <p style="background:var(--sand); border-radius:10px; padding:1rem 1.25rem; color:var(--driftwood); font-size:0.92rem;">
+      📝 <strong>Full details coming soon.</strong> We're putting the finishing touches on this listing — including
+      bedrooms, bathrooms, amenities, and rates. In the meantime, browse the photos below and
+      <a href="index.html#contact" style="color:var(--ocean); font-weight:600;">reach out</a> for availability.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Find us</div>
+    <h2>Where you'll be</h2>
+    <p>On the water in Port Charlotte, FL.</p>
+    <div class="map-embed">
+      <iframe
+        src="https://maps.google.com/maps?q=14459%20River%20Beach%20Dr%2C%20Port%20Charlotte%2C%20FL%2033953&z=15&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Map of Jana River Beach — 14459 River Beach Drive, Port Charlotte, FL 33953"></iframe>
+    </div>
+    <div class="map-address">
+      <span>📍 14459 River Beach Drive, A104, Port Charlotte, FL 33953</span>
+      <span>·</span>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=14459+River+Beach+Dr%2C+Port+Charlotte%2C+FL+33953" target="_blank" rel="noopener">Get directions ↗</a>
+    </div>
+  </div>
+
+  <!-- RIGHT: BOOKING CARD -->
+  <aside>
+    <div class="booking-card">
+      <div class="bc-price">Coming Soon</div>
+      <div class="bc-stars" style="color:var(--ocean); font-weight:600;">Now being prepared for booking</div>
+      <p style="font-size:0.9rem; color:var(--text-lt); line-height:1.6; margin:0.5rem 0 1.25rem;">
+        Full details and rates are on the way. Interested in this waterfront condo? Send us a note and we'll follow
+        up with availability.
+      </p>
+      <a href="index.html#contact" class="btn btn-primary" style="width:100%; text-align:center;">Request Info</a>
+      <div class="bc-note">We'll reach out with availability and rates as soon as they're set.</div>
+    </div>
+  </aside>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" onclick="closeLightbox()">&times;</span>
+  <span class="lb-nav lb-prev" onclick="changeLightbox(-1)">&#8249;</span>
+  <img id="lbImg" src="" alt="Jana River Beach photo" />
+  <span class="lb-nav lb-next" onclick="changeLightbox(1)">&#8250;</span>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1200px; margin:0 auto; text-align:center; padding-bottom:2rem; border-bottom:1px solid rgba(255,255,255,0.1);">
+    <div style="font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:#8de3f7;">Salt &amp; Shore Vacations</div>
+    <div style="font-size:0.8rem; font-weight:600; color:var(--coral); margin-top:2px;">Grow Prosper MOVE Realty</div>
+    <div style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-top:2px;">Cape Coral, Florida</div>
+    <div style="margin-top:1rem; font-size:0.88rem;">
+      Andrea Vanderklok ·
+      <a href="mailto:andreavanderklok@gmail.com" style="color:var(--wave); text-decoration:none;">andreavanderklok@gmail.com</a> ·
+      <a href="tel:+12399105571" style="color:var(--wave); text-decoration:none;">(239) 910-5571</a>
+    </div>
+    <a href="https://growprospermove.com" target="_blank" rel="noopener" style="display:inline-block; margin-top:1.25rem;">
+      <img src="images/gpm-logo-teal.png" alt="Grow Prosper MOVE Realty" style="height:64px; width:auto; border-radius:8px;" />
+    </a>
+  </div>
+  <div class="footer-bottom" style="margin-top:1.5rem;">
+    <span>© 2026 Salt &amp; Shore Vacations · A brand of Grow Prosper MOVE Realty</span>
+    <span><a href="index.html">← Back to all properties</a></span>
+  </div>
+</footer>
+
+<script>
+  // Navbar shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Gallery / lightbox
+  const photos = Array.from({ length: 17 }, (_, i) =>
+    'images/jana-river-beach/' + String(i + 1).padStart(2, '0') + '.jpg'
+  );
+  let lbIndex = 0;
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCount = document.getElementById('lbCount');
+
+  function openLightbox(i) {
+    lbIndex = i;
+    lbImg.src = photos[i];
+    lbCount.textContent = (i + 1) + ' / ' + photos.length;
+    lb.classList.add('open');
+  }
+  function closeLightbox() { lb.classList.remove('open'); }
+  function changeLightbox(dir) {
+    lbIndex = (lbIndex + dir + photos.length) % photos.length;
+    lbImg.src = photos[lbIndex];
+    lbCount.textContent = (lbIndex + 1) + ' / ' + photos.length;
+  }
+  document.querySelectorAll('.gallery img').forEach(img => {
+    img.addEventListener('click', () => openLightbox(parseInt(img.dataset.index)));
+  });
+  lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeLightbox(-1);
+    if (e.key === 'ArrowRight') changeLightbox(1);
+  });
+
+  // Date minimums
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('bcCheckin').min = today;
+  document.getElementById('bcCheckout').min = today;
+  document.getElementById('bcCheckin').addEventListener('change', function() {
+    document.getElementById('bcCheckout').min = this.value;
+  });
+</script>
+
+</body>
+</html>
